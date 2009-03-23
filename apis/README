@@ -1,0 +1,11 @@
+Vooices.us
+==========
+
+We plan to have a variety of API's so that you can easily integrate your applications into our Voice platform.
+
+The API's we support are in the following languages:
+
+ +	Javascript
+ 
+Vooices.us is based around XMPP and as such can easily integrated with any language that can hold a XMPP stanza conversation.
+We will be providing support for other platforms soon, most notably Silverlight and Flash.
