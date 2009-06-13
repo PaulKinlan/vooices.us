@@ -1,8 +1,16 @@
 /*
 	Command Structure
+
+	PLAIN TEXT
+	============
+	The current incarnation of the system sends single commands as plain text, these map directly to 
+	on_COMMAND methods.
 	
-	({user_id: "",	user_name: "",	game_id: "",	command: "START",	sequence_id : 0	timestamp: new Date()	})
+	This means the command_object parameter on the methods will be a string.  Future versions will support XML Documents and JSON Documents.
 	
+	JSON
+	======
+	TODO: In the future
 	({
 	user_id: "",
 	user_name: "",
@@ -11,7 +19,9 @@
 	sequence_id : 0
 	timestamp: new Date()
 	})
-
+	XML
+	====
+	TODO: In the future
 	<vox>
 		<user id="">NAME</user>
 		<command></command>
@@ -110,9 +120,8 @@ function Controller() {
 	}
 }
 
-var Vooices = new VooicesAPI();
 
 /*
-	This is dynamically created from the developers game configuration.
+	Create the API globablly
 */
-Vooices.GameController.init((["NORTH", "SOUTH", "EAST", "WEST"]))
+var Vooices = new VooicesAPI();
