@@ -11,7 +11,7 @@
 
 		
 		<script>
-			document.domain = "vooices.us";						
+			var gameId = 2; // CHANGE THIS TO MATCH YOUR GAME ID
 			var columns = {}
 			var map = undefined
 			
@@ -109,12 +109,12 @@
 			function on_login()
 			{
 				jid = Vooices.GameController.session_id()				
-				$.post('http://server.vooices.us/check?SessionID=' + jid +'&Locale=' + window.navigator.language  + '&gameID=1', {},  parseResponse)
+				$.post('http://server.vooices.us/check?SessionID=' + jid +'&Locale=' + window.navigator.language  + '&gameID=' + gameId, {},  parseResponse)
 			}
 			
 			function parseResponse(data, textStatus)
 			{
-				var resp = $(data).find("resp")
+				var resp = $(data)
 				var phonenumber = resp.attr('phonenumber')
 				var keycode = resp.attr('keycode')
 				$("#phone").text(phonenumber)

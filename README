@@ -5,11 +5,20 @@ Welcome to the Vooices.us API.
 
 Here you will find our API's and examples so that you can develop your own interactive applications.
 
+APIs
+====
 
+The currently supported API's are:
+	- Javascript
+	
+API's for other languages will follow soon.
 
+Examples
+========
 
-
-
+	- Javascript
+		- Maps
+		- Capcha -- To come in the near future.
 
 Regards,
-The Vooices.u Team.
+The Vooices.us Team.
