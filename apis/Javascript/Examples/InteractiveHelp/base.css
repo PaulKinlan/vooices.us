@@ -1,0 +1,52 @@
+body{ 
+	padding: 0 5px;
+	font-family: Verdana, sans-serif;
+	background-color: #DDD;
+}
+ul, li, h3, h2, h1, p{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+
+.sidebar{
+	position:absolute;
+	right:5px;
+	top:15px;
+}
+
+#links{
+	border:1px solid black;
+	/*width:210px;*/
+	padding:10px;
+	background-color:white;
+}
+	#links h3{
+		color:#933;
+	}
+	#links ul{
+		padding: 8px 0 3px 20px;
+	}
+	#links li{
+		list-style-type:circle;
+	}
+	#links a{
+		color:#69C;
+	}
+
+h1{
+	margin:20px 0;
+	color:#5B739C;
+}
+	h1 strong{
+		font-size:13px;
+		color:#777;
+	}
+h2.title{
+	color:#933;
+	margin-bottom:10px;
+	text-align:right;
+}
+.clear{
+	clear:left;
+}

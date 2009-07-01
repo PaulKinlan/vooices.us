@@ -1,0 +1,262 @@
+<html>
+	<head>
+		<title>Voice Map</title>
+		<script src="jquery-1.2.6.js" type="text/javascript"></script>
+		 <script language='javascript'
+	  type='text/javascript'
+	  src='/b64.js'></script>
+  <script language='javascript'
+	  type='text/javascript'
+	  src='/md5.js'></script>
+  <script language='javascript'
+	  type='text/javascript'
+	  src='/sha1.js'></script>
+  <script language='javascript'
+	  type='text/javascript'
+	  src='/strophe.js'></script>
+		<script src="AIRAliases.js" />
+		<script src="AIRIntrospector.js" />
+		<script src="vooices.js" type="text/javascript"></script>
+		
+		<!--<script src="http://maps.google.com/maps?file=api&v=2&sensor=true&key=ABQIAAAA2imQ_8LyIl4lOcDKxClNBBSF9QQuZJSkBW7ntEnlHznRkwFsJhRCDwkS4NqpNmyc_Dusf9kby5TV0A" type="text/javascript">
+		
+  </script>	-->	
+	<script>
+	
+	var bridgeInterface = {}
+	var gameId = 2; // CHANGE THIS TO MATCH YOUR GAME ID
+	
+	var sandbox = null
+	var mapinterface = null
+	
+	function setBridge()
+	{
+		//mapinterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+		//alert(mapinterface)
+	}
+	
+	controller = new Controller()
+			
+			Vooices.GameController.init(["north", "south", "east", "west", "zoomin", "zoomout", "hybrid", "satellite", "normal", "terrain"])
+			
+			$(document).ready(function()
+				{	
+					Vooices.GameController.on_logged_in = on_login;
+	
+					/*
+						Handle the commands that you defined in the game admin panel
+						
+						The on_XYZ commands are created dynamically.
+					*/
+					
+					Vooices.GameController.login()
+				
+						
+				}	
+			)
+			
+			function on_login(status)
+			{
+				if(status == Strophe.Status.CONNECTED)
+				{
+					Vooices.GameController.session.addHandler(Vooices.GameController.onMessage, null, "message", null, null, null)
+					
+					Vooices.GameController.on_north = controller.on_north;
+					Vooices.GameController.on_start = controller.on_start;
+					Vooices.GameController.on_south = controller.on_south;
+					Vooices.GameController.on_east = controller.on_east;
+					Vooices.GameController.on_west =  controller.on_west;
+					Vooices.GameController.on_zoomin =  controller.on_zoomin;
+					Vooices.GameController.on_zoomout =  controller.on_zoomout;
+					Vooices.GameController.on_hybrid =  controller.on_hybrid;
+					Vooices.GameController.on_satellite =  controller.on_satellite;
+					Vooices.GameController.on_normal =  controller.on_normal;
+					Vooices.GameController.on_terrain = controller.on_terrain;
+					
+					jid = Vooices.GameController.session_id()	
+					
+					air.trace(jid)
+					
+					
+					$.post('http://server.vooices.us/check?SessionID=' + jid +'&Locale=' + window.navigator.language  + '&gameID=' + gameId, {},  parseResponse)
+				}
+			}
+			
+			function parseResponse(data, textStatus)
+			{
+				var resp = $(data)
+				var phonenumber = resp.attr('phonenumber')
+				var keycode = resp.attr('keycode')
+				$("#phone").text(phonenumber)
+				$("#number").text(keycode)
+				$("#instructions").fadeIn("fast");
+			}
+			
+			function Controller()
+			{
+				this.on_north= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					mapInterface.panBy(0,100)					
+				}
+				
+				this.on_south = function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					mapInterface.panBy(0,-100)					
+					
+				}
+				
+				this.on_east= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					mapInterface.panBy(100,0)
+				}
+				
+				this.on_west = function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					mapInterface.panBy(-100,0)					
+				}
+										
+				this.on_zoomin= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					
+					var zoomLevel = mapInterface.getZoom()
+					
+					zoomLevel ++
+					
+					mapInterface.setZoom(zoomLevel)
+				}
+				
+				this.on_zoomout= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					
+					var zoomLevel = mapInterface.getZoom()
+					
+					zoomLevel --
+					
+					mapInterface.setZoom(zoomLevel)
+				}
+				
+				this.on_hybrid= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					
+					mapInterface.setMapTypeHybrid()
+				}
+				
+				this.on_terrain= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+				
+					mapInterface.setMapTypeTerrain()
+				}
+				
+				this.on_satellite= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					
+					mapInterface.setMapTypeSat()
+				}
+				
+				this.on_normal= function(command_object)
+				{
+					var mapInterface = document.getElementById('sandbox').contentWindow.childSandboxBridge
+					
+					
+					mapInterface.setMapTypeNormal()
+				}
+				this.on_start = function(command_object)
+				{
+					$("#instructions").hide("fast")
+				}
+			}	
+	
+	
+	</script>
+		<style>
+			body
+			{
+				font-family: Arial;				
+			}
+		
+			
+			#phone{
+				font-weight: 700;
+			}
+			
+			#number{
+				font-weight: 700;
+			}
+			
+			#steps
+			{
+				margin: 0px;
+			}
+			
+			#steps li 
+			{
+				display: inline;
+			}
+			
+			#score-container
+			{
+				display: none;
+			}
+			
+			#steps
+			{
+			
+			}
+			
+			#instructions
+			{
+				font-size: 0.8em;
+				display: none;fs
+			}
+			
+			#instructions h2
+			{
+				font-size: 1.2em;
+			}
+			
+			h2
+			{
+				margin: 0px;
+				margin-top: 10px;
+			}
+			
+			#sandbox
+			{
+				width: 100%;
+				height: 500px;
+				border: 0;
+					margin: 0;
+				padding: 0;
+			}
+			
+			
+			
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			
+		</style>
+	</head>
+	<body>		
+		<iframe id="sandbox" src="map-host.html" sandboxRoot="http://localhost" documentRoot="app:/" ondominitialize="setBridge()" ></iframe>
+		<div style="margin:0;" id="instructions">
+			<h2>To Use</h2>
+			<ol id="steps">
+				<li><strong>1</strong>. Dial <span id="phone"></span>, </li>
+				<li><strong>2</strong>. On your phone keypad type <span id="number"></span># when promoted, </li>
+				<li><strong>3</strong>. Move up by Saying NORTH or ZOOM IN, </li>
+				<li><strong>4</strong>. Hang up when you are bored.</li>				
+			</ol>
+		</div>
+	</body>
+</html>

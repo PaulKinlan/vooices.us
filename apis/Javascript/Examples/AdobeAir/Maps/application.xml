@@ -1,0 +1,19 @@
+<application xmlns="http://ns.adobe.com/air/application/1.5">
+  <id>us.vooices.maps</id>
+  <version>0.3</version>
+  <filename>Maps</filename>
+  <name>Maps Demo</name>
+  <description>An interactive Voice application</description>
+  <copyright>Copyright (c) 2009 Twe2 Ltd</copyright> 
+  <installFolder>Maps</installFolder> 
+  <programMenuFolder>Maps</programMenuFolder>
+  <allowBrowserInvocation>true</allowBrowserInvocation>
+  <initialWindow>
+	<title>Voice Controlled Map</title>
+    <content>maps.html</content>
+    <visible>true</visible>
+    <width>800</width>
+    <height>600</height>
+	<minSize>800 600</minSize>
+  </initialWindow> 
+</application>

@@ -28,6 +28,9 @@ function VooicesAPI()
 function Controller() {
 	// The Connection to the internal system.
 	this.session = null;
+	// The name of who we are sending the message to
+	this.reciever = "admin@server.vooices.us"
+	
 	/*
 		Initializes the Game Controller with the list of commands that are available from the call.
 	*/
@@ -107,6 +110,16 @@ function Controller() {
 				obj["on_" + command](command)
 			}
 		})
+	}
+	
+	/*	
+		Called by clients that want to send a message back to the phone call.
+		
+		All commands must be configured in your application configuration
+	*/
+	this.send_command = function(message)
+	{
+		$(session).sendMessage(this.reciever, message)
 	}
 }
 
